@@ -1,9 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { id } = req.query;
-  if (!id || typeof id !== "string") return res.status(400).json({ error: "Invalid user ID" });
+  if (!id || typeof id !== "string")
+    return res.status(400).json({ error: "Invalid user ID" });
 
   const { recipeId, action } = req.body;
   if (!recipeId || !["add", "remove"].includes(action)) {
@@ -13,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     if (action === "add") {
       const favorite = await prisma.userFavorite.create({
-         { userId: id, recipeId },
+        data: { userId: id, recipeId },
       });
       res.status(200).json(favorite);
     } else {

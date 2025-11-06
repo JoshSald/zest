@@ -29,7 +29,9 @@ export default async function handler(
       profilePicture: user.profilePicture,
       joinedDate: user.joinedDate,
       submittedRecipes: user.submittedRecipes,
-      favoriteRecipes: user.favoriteRecipes.map((fav) => fav.recipe),
+      favoriteRecipes: user.favoriteRecipes.map(
+        (fav: { recipe: any }) => fav.recipe
+      ),
       notes: user.notes,
     });
   } catch (error) {
