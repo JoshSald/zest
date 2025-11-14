@@ -1,10 +1,21 @@
-import Image from "next/image";
+import { getUserById, getAllData } from "./actions/api";
 
-export default function Home() {
+export default async function Home() {
+  const { recipes } = await getAllData();
   return (
-    <section>
-      <h1>This is a Home Page</h1>
-      <p>This is body</p>
-    </section>
+    <div className="container mx-auto py-12">
+      <div className="recipes flex gap-4 flex-wrap justify-center">
+        {recipes.map((recipe) => (
+          <article
+            key={recipe.id}
+            className="card rounded-2xl to-background-cards"
+          >
+            <h3>{recipe.title}</h3>
+            <p>{recipe.description}</p>
+            <p>Submitted by {getUserById(recipe.user_id)}</p>
+          </article>
+        ))}
+      </div>
+    </div>
   );
 }

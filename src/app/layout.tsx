@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { StackProvider, StackTheme } from "@stackframe/stack";
+import { stackClientApp } from "../stack/client";
 import Head from "next/head";
 import { Poppins, Roboto } from "next/font/google";
 import "./globals.css";
@@ -48,9 +50,9 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <html lang="en">
-        <body className={`${poppins.variable} ${roboto.variable} antialiased`}>
+        <body className={`${poppins.variable} ${roboto.variable} antialiased`}><StackProvider app={stackClientApp}><StackTheme>
           {children}
-        </body>
+        </StackTheme></StackProvider></body>
       </html>
     </>
   );
